@@ -1,0 +1,111 @@
+#To start the prog type:   main()
+
+#Turns the image black and white
+def blackAndWhite(image):
+   for pixel in image.getPixels():
+      red = pixel.getRed()
+      green = pixel.getGreen()
+      blue = pixel.getBlue()
+      average = (red + green + blue) / 3
+      if average < 128:
+         red = green = blue = 0
+      else:
+         red = green = blue = 255
+      pixel.setRed(red)
+      pixel.setGreen(green)
+      pixel.setBlue(blue)
+#add a grid to the image
+def grid(pic):
+  width = getWidth(pic)
+  height = getHeight(pic)
+  size = 10
+  for x in range(0, width, size):
+    addLine(pic, x+size, 0, x+size, height)
+  for y in range(0, height, size):
+    addLine(pic, 0, y+size, width, y+size)
+
+def colorFilter(image, rgbTriple):
+   def baseValue(value, offset):
+      if offset == 0:
+         return value
+      elif offset < 0:
+         return max(value + offset, 0)
+      else:
+         return min(value + offset, 255)
+   for pixel in image.getPixels():
+      red = pixel.getRed()
+      green = pixel.getGreen()
+      blue = pixel.getBlue()
+      red = baseValue(red, rgbTriple[0])
+      green = baseValue(green, rgbTriple[1])
+      blue = baseValue(blue, rgbTriple[2])
+      pixel.setRed(red)
+      pixel.setGreen(green)
+      pixel.setBlue(blue)   
+#makes the image gray scale
+def grayScale(image):
+   for pixel in image.getPixels():
+      red = pixel.getRed()
+      green = pixel.getGreen()
+      blue = pixel.getBlue()
+      red = int(red * 0.299)
+      green = int(green * 0.587)
+      blue = int(blue * 0.114)
+      gray = red + green + blue
+      pixel.setRed(gray)
+      pixel.setGreen(gray)
+      pixel.setBlue(gray)
+#fades the top half of the image black(ish)
+def fadeTopHalf(pic1):  
+
+   w=getWidth(pic1)
+   h=getHeight(pic1)
+
+   for y in range(0,h/2):
+       for x in range(0,w):
+           px= getPixel( pic1, x, y )
+           setRed(px,y*(2.0/h)*getRed(px))
+           setGreen(px,y*(2.0/h)*getGreen(px))
+           setBlue(px,y*(2.0/h)*getBlue(px))
+#mirrors the image 
+def flip(pic):
+  width = getWidth(pic)
+  height = getHeight(pic)
+  for y in range (0,height):
+    for x in range (0, width/2):
+        left=getPixel(pic, x, y)
+        right=getPixel(pic, width-x-1,y)
+        color1=getColor(left)
+        color2=getColor(right)
+        setColor(right, color1)
+        setColor(left, color2)
+
+#used for testing code
+def test():
+  abc = pickAFile()
+  bgPic = makePicture(abc)
+  show(bgPic)
+  flip(bgPic)
+  repaint(bgPic)
+     
+
+def main():
+  abc = pickAFile()
+  bgPic = makePicture(abc)
+  show(bgPic)  
+  colorFilter(bgPic,(60,0,0))
+  repaint(bgPic)
+  grid(bgPic)
+  repaint(bgPic)
+  flip(bgPic)
+  repaint(bgPic)
+  grayScale(bgPic)
+  repaint(bgPic)
+  blackAndWhite(bgPic)
+  repaint(bgPic)
+  fadeDownFromBlack(bgPic)
+  repaint(bgPic)
+  
+  
+  
+  
