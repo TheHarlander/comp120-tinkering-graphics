@@ -1,6 +1,7 @@
-#To start the prog type:   main()
+#To start the programme type:   main()
 
-#Turns the image black and white
+#Turns the image black and white by getting the red,-
+#blue and greens and changing their color.
 def blackAndWhite(image):
    for pixel in image.getPixels():
       red = pixel.getRed()
@@ -14,7 +15,7 @@ def blackAndWhite(image):
       pixel.setRed(red)
       pixel.setGreen(green)
       pixel.setBlue(blue)
-#add a grid to the image
+#Add a grid over the image to give it a more aesthetic look.
 def grid(pic):
   width = getWidth(pic)
   height = getHeight(pic)
@@ -42,7 +43,7 @@ def colorFilter(image, rgbTriple):
       pixel.setRed(red)
       pixel.setGreen(green)
       pixel.setBlue(blue)   
-#makes the image gray scale
+#makes the image gray scale by slightly changing the colors.
 def grayScale(image):
    for pixel in image.getPixels():
       red = pixel.getRed()
@@ -88,23 +89,23 @@ def test():
   flip(bgPic)
   repaint(bgPic)
      
-
+#This is the main code where I've added all of the code together.
 def main():
-  abc = pickAFile()
-  bgPic = makePicture(abc)
-  show(bgPic)  
-  colorFilter(bgPic,(60,0,0))
-  repaint(bgPic)
-  grid(bgPic)
-  repaint(bgPic)
-  flip(bgPic)
-  repaint(bgPic)
-  grayScale(bgPic)
-  repaint(bgPic)
-  blackAndWhite(bgPic)
-  repaint(bgPic)
-  fadeDownFromBlack(bgPic)
-  repaint(bgPic)
+  abc = pickAFile()            #Lets the user choose a file(picture)
+  bgPic = makePicture(abc)     #Turns the file into a picture
+  show(bgPic)                  #Shows the orignal picture
+  colorFilter(bgPic,(60,0,0))  #Changes the picture color to a shade of red
+  repaint(bgPic)               #Shows the changed picture
+  grid(bgPic)                  #Adds a grid over the picture
+  repaint(bgPic)               #Shows the changed picture
+  flip(bgPic)                  #Flips over the picture
+  repaint(bgPic)               #Shows the changed picture
+  grayScale(bgPic)             #Changes the picture to greyscale
+  repaint(bgPic)               #Shows the changed picture
+  blackAndWhite(bgPic)         #changes the picture to black and white
+  repaint(bgPic)               #Shows the changed picture
+  fadeDownFromBlack(bgPic)     #Fades the top half of the picture with black
+  repaint(bgPic)               #Shows the changed picture
   
   
   
